@@ -17,6 +17,8 @@ class TimeLoggersController < ApplicationController
     @time_logger = TimeLogger.new(:issue_id => params[:issue_id])
     @time_logger.started_on = Time.current
 
+    @issue = Issue.find(params[:issue_id])
+    
     respond_to do |format|
       if @time_logger.save
         apply_status_transition(@issue) unless Setting.plugin_time_logger['status_transitions'].nil?
